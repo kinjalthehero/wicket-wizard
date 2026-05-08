@@ -48,15 +48,15 @@
       z-index: 1;
       width: 100%;
       max-width: 420px;
-      padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
+      padding: 12px 14px 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 12px;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 800;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #818cf8, #ec4899);
@@ -68,7 +68,7 @@
 
     h1 span {
       display: block;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 400;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -79,29 +79,29 @@
       width: 100%;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 24px;
+      border-radius: 16px;
+      padding: 14px 16px;
       backdrop-filter: blur(12px);
     }
 
     .card-label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #8888aa;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     /* Score Section */
     .score-display {
-      font-size: 6rem;
+      font-size: 4.5rem;
       font-weight: 800;
       text-align: center;
       line-height: 1;
       color: #fff;
-      text-shadow: 0 0 40px rgba(129, 140, 248, 0.3);
-      padding: 8px 0 16px;
+      text-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
+      padding: 4px 0 10px;
       font-variant-numeric: tabular-nums;
     }
 
@@ -113,12 +113,12 @@
 
     .btn {
       border: none;
-      border-radius: 16px;
+      border-radius: 12px;
       font-weight: 700;
       cursor: pointer;
       transition: transform 0.1s, box-shadow 0.15s;
       font-family: inherit;
-      min-height: 56px;
+      min-height: 46px;
     }
 
     .btn:active {
@@ -126,85 +126,85 @@
     }
 
     .btn-run {
-      padding: 18px 0;
-      font-size: 1.3rem;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+      padding: 14px 0;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #4f52b5, #6d5eaa);
+      color: #e0e0ff;
+      box-shadow: 0 2px 12px rgba(79, 82, 181, 0.2);
     }
 
     .btn-run:active {
-      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5);
+      box-shadow: 0 1px 6px rgba(79, 82, 181, 0.3);
     }
 
     .btn-four {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+      background: linear-gradient(135deg, #b8860b, #a07608);
+      box-shadow: 0 2px 12px rgba(184, 134, 11, 0.2);
     }
 
     .btn-four:active {
-      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.5);
+      box-shadow: 0 1px 6px rgba(184, 134, 11, 0.3);
     }
 
     .btn-six {
-      background: linear-gradient(135deg, #10b981, #059669);
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+      background: linear-gradient(135deg, #0d8c6a, #0a7558);
+      box-shadow: 0 2px 12px rgba(13, 140, 106, 0.2);
     }
 
     .btn-six:active {
-      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 1px 6px rgba(13, 140, 106, 0.3);
     }
 
     .btn-minus {
-      padding: 18px 0;
-      font-size: 1.3rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #aaa;
+      padding: 14px 0;
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #888;
     }
 
     /* Wickets Section */
     .wickets-display {
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: 800;
       text-align: center;
       line-height: 1;
       color: #fff;
-      text-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
-      padding: 8px 0 16px;
+      text-shadow: 0 0 20px rgba(180, 90, 20, 0.2);
+      padding: 4px 0 10px;
       font-variant-numeric: tabular-nums;
     }
 
     .btn-wicket {
       flex: 1;
-      padding: 18px 0;
-      font-size: 1.3rem;
-      background: linear-gradient(135deg, #f97316, #ea580c);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+      padding: 14px 0;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #b05a10, #964d0e);
+      color: #e0d0c0;
+      box-shadow: 0 2px 12px rgba(176, 90, 16, 0.2);
     }
 
     .btn-wicket:active {
-      box-shadow: 0 2px 10px rgba(249, 115, 22, 0.5);
+      box-shadow: 0 1px 6px rgba(176, 90, 16, 0.3);
     }
 
     .btn-wicket-undo {
-      width: 72px;
-      padding: 18px 0;
-      font-size: 1.3rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #aaa;
+      width: 64px;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #888;
     }
 
     /* Overs Section */
     .overs-display {
       text-align: center;
-      padding: 8px 0 16px;
+      padding: 4px 0 10px;
     }
 
     .overs-big {
-      font-size: 3.5rem;
+      font-size: 3rem;
       font-weight: 800;
       color: #fff;
       line-height: 1;
@@ -212,27 +212,27 @@
     }
 
     .overs-label-inline {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: #8888aa;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     .btn-ball {
       width: 100%;
-      padding: 20px;
-      font-size: 1.3rem;
-      background: linear-gradient(135deg, #ec4899, #f43f5e);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+      padding: 14px;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #a83a70, #b03050);
+      color: #f0d0e0;
+      box-shadow: 0 2px 12px rgba(168, 58, 112, 0.2);
     }
 
     .btn-ball:active {
-      box-shadow: 0 2px 10px rgba(236, 72, 153, 0.5);
+      box-shadow: 0 1px 6px rgba(168, 58, 112, 0.3);
     }
 
     .ball-buttons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-ball-main {
@@ -240,51 +240,55 @@
     }
 
     .btn-ball-undo {
-      width: 72px;
-      padding: 20px 0;
+      width: 64px;
+      padding: 14px 0;
       font-size: 1.1rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #aaa;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #888;
     }
 
     /* Reset */
     .btn-reset {
       width: 100%;
-      padding: 18px;
-      font-size: 1rem;
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid rgba(239, 68, 68, 0.25);
-      color: #ef4444;
+      padding: 14px;
+      font-size: 0.9rem;
+      background: rgba(180, 50, 50, 0.1);
+      border: 1px solid rgba(180, 50, 50, 0.2);
+      color: #c45050;
       letter-spacing: 1px;
     }
 
     .btn-reset:active {
-      background: rgba(239, 68, 68, 0.25);
+      background: rgba(180, 50, 50, 0.2);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 8px);
+      font-size: 0.6rem;
+      color: #555;
+      letter-spacing: 0.5px;
+    }
+
+    .footer a {
+      color: #666;
+      text-decoration: none;
     }
 
     /* Mobile adjustments */
     @media (max-width: 400px) {
       .score-display {
-        font-size: 5rem;
+        font-size: 3.5rem;
       }
       .overs-big {
-        font-size: 3rem;
+        font-size: 2.5rem;
+      }
+      .wickets-display {
+        font-size: 2.5rem;
       }
       h1 {
-        font-size: 1.7rem;
-      }
-    }
-
-    @media (min-height: 700px) {
-      .container {
-        gap: 24px;
-      }
-      .score-display {
-        padding: 12px 0 20px;
-      }
-      .overs-display {
-        padding: 12px 0 20px;
+        font-size: 1.4rem;
       }
     }
 
@@ -365,16 +369,6 @@
       </div>
     </div>
 
-    <!-- Wickets -->
-    <div class="card">
-      <div class="card-label">Wickets</div>
-      <div class="wickets-display" id="wickets">0</div>
-      <div class="ball-buttons">
-        <button class="btn btn-wicket btn-ball-main" id="btnWicket">+ Wicket</button>
-        <button class="btn btn-wicket-undo" id="btnWicketUndo">&minus;1</button>
-      </div>
-    </div>
-
     <!-- Overs -->
     <div class="card">
       <div class="card-label">Overs</div>
@@ -388,8 +382,22 @@
       </div>
     </div>
 
+    <!-- Wickets -->
+    <div class="card">
+      <div class="card-label">Wickets</div>
+      <div class="wickets-display" id="wickets">0</div>
+      <div class="ball-buttons">
+        <button class="btn btn-wicket btn-ball-main" id="btnWicket">+ Wicket</button>
+        <button class="btn btn-wicket-undo" id="btnWicketUndo">&minus;1</button>
+      </div>
+    </div>
+
     <!-- Reset -->
     <button class="btn btn-reset" id="btnReset">RESET MATCH</button>
+
+    <div class="footer">
+      Developed by Kinjal Mistry &middot; <a href="mailto:kinjalthehero@gmail.com">kinjalthehero@gmail.com</a>
+    </div>
   </div>
 
   <!-- Confirm Reset Dialog -->
