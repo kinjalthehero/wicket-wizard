@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0a0a1a">
+  <title>Wicket Wizard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0a0a1a;
+      color: #e0e0ff;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: -40%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 32px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #818cf8, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+
+    h1 span {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      -webkit-text-fill-color: #8888aa;
+    }
+
+    .card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8888aa;
+      margin-bottom: 8px;
+    }
+
+    /* Score Section */
+    .score-display {
+      font-size: 6rem;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(129, 140, 248, 0.3);
+      padding: 8px 0 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .score-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.15s;
+      font-family: inherit;
+      min-height: 56px;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-plus {
+      flex: 1;
+      padding: 20px;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-plus:active {
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-minus {
+      width: 72px;
+      padding: 20px 0;
+      font-size: 1.3rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+    }
+
+    /* Overs Section */
+    .overs-display {
+      text-align: center;
+      padding: 8px 0 16px;
+    }
+
+    .overs-big {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .overs-label-inline {
+      font-size: 0.85rem;
+      color: #8888aa;
+      margin-top: 4px;
+    }
+
+    .btn-ball {
+      width: 100%;
+      padding: 20px;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #ec4899, #f43f5e);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .btn-ball:active {
+      box-shadow: 0 2px 10px rgba(236, 72, 153, 0.5);
+    }
+
+    .ball-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-ball-main {
+      flex: 1;
+    }
+
+    .btn-ball-undo {
+      width: 72px;
+      padding: 20px 0;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+    }
+
+    /* Reset */
+    .btn-reset {
+      width: 100%;
+      padding: 18px;
+      font-size: 1rem;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #ef4444;
+      letter-spacing: 1px;
+    }
+
+    .btn-reset:active {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 400px) {
+      .score-display {
+        font-size: 5rem;
+      }
+      .overs-big {
+        font-size: 3rem;
+      }
+      h1 {
+        font-size: 1.7rem;
+      }
+    }
+
+    @media (min-height: 700px) {
+      .container {
+        gap: 24px;
+      }
+      .score-display {
+        padding: 12px 0 20px;
+      }
+      .overs-display {
+        padding: 12px 0 20px;
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .btn:active {
+        transform: scale(0.93);
+      }
+    }
+
+    /* Confirm dialog */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay.visible {
+      display: flex;
+    }
+
+    .dialog {
+      background: #1a1a2e;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px 24px;
+      width: 90%;
+      max-width: 340px;
+      text-align: center;
+    }
+
+    .dialog p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    .dialog-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .dialog-buttons .btn {
+      flex: 1;
+      padding: 14px;
+      font-size: 1rem;
+    }
+
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      color: #aaa;
+    }
+
+    .btn-confirm {
+      background: #ef4444;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <div class="container">
+    <h1>Wicket Wizard<span>Umpire Scoreboard</span></h1>
+
+    <!-- Score -->
+    <div class="card">
+      <div class="card-label">Total Runs</div>
+      <div class="score-display" id="score">0</div>
+      <div class="score-buttons">
+        <button class="btn btn-plus" id="btnPlus">+1 Run</button>
+        <button class="btn btn-minus" id="btnMinus">&minus;1</button>
+      </div>
+    </div>
+
+    <!-- Overs -->
+    <div class="card">
+      <div class="card-label">Overs</div>
+      <div class="overs-display">
+        <div class="overs-big" id="overs">0.0</div>
+        <div class="overs-label-inline" id="ballInfo">0 balls bowled</div>
+      </div>
+      <div class="ball-buttons">
+        <button class="btn btn-ball btn-ball-main" id="btnBall">+ Ball</button>
+        <button class="btn btn-ball-undo" id="btnBallUndo">&minus;1</button>
+      </div>
+    </div>
+
+    <!-- Reset -->
+    <button class="btn btn-reset" id="btnReset">RESET MATCH</button>
+  </div>
+
+  <!-- Confirm Reset Dialog -->
+  <div class="overlay" id="overlay">
+    <div class="dialog">
+      <p>Reset everything?</p>
+      <div class="dialog-buttons">
+        <button class="btn btn-cancel" id="btnCancel">Cancel</button>
+        <button class="btn btn-confirm" id="btnConfirmReset">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'wicket_wizard_state';
+
+    let state = loadState();
+
+    const elScore = document.getElementById('score');
+    const elOvers = document.getElementById('overs');
+    const elBallInfo = document.getElementById('ballInfo');
+    const overlay = document.getElementById('overlay');
+
+    function defaultState() {
+      return { runs: 0, totalBalls: 0 };
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (typeof parsed.runs === 'number' && typeof parsed.totalBalls === 'number') {
+            return parsed;
+          }
+        }
+      } catch {}
+      return defaultState();
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function formatOvers(totalBalls) {
+      const overs = Math.floor(totalBalls / 6);
+      const balls = totalBalls % 6;
+      return `${overs}.${balls}`;
+    }
+
+    function render() {
+      elScore.textContent = state.runs;
+      elOvers.textContent = formatOvers(state.totalBalls);
+      const plural = state.totalBalls === 1 ? 'ball' : 'balls';
+      elBallInfo.textContent = `${state.totalBalls} ${plural} bowled`;
+    }
+
+    // +1 Run
+    document.getElementById('btnPlus').addEventListener('click', () => {
+      state.runs++;
+      saveState();
+      render();
+    });
+
+    // -1 Run
+    document.getElementById('btnMinus').addEventListener('click', () => {
+      if (state.runs > 0) {
+        state.runs--;
+        saveState();
+        render();
+      }
+    });
+
+    // + Ball
+    document.getElementById('btnBall').addEventListener('click', () => {
+      state.totalBalls++;
+      saveState();
+      render();
+    });
+
+    // -1 Ball
+    document.getElementById('btnBallUndo').addEventListener('click', () => {
+      if (state.totalBalls > 0) {
+        state.totalBalls--;
+        saveState();
+        render();
+      }
+    });
+
+    // Reset flow
+    document.getElementById('btnReset').addEventListener('click', () => {
+      overlay.classList.add('visible');
+    });
+
+    document.getElementById('btnCancel').addEventListener('click', () => {
+      overlay.classList.remove('visible');
+    });
+
+    document.getElementById('btnConfirmReset').addEventListener('click', () => {
+      state = defaultState();
+      localStorage.removeItem(STORAGE_KEY);
+      overlay.classList.remove('visible');
+      render();
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('visible');
+    });
+
+    render();
+  </script>
+</body>
+</html>
