@@ -106,8 +106,9 @@
     }
 
     .score-buttons {
-      display: flex;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 72px;
+      gap: 10px;
     }
 
     .btn {
@@ -124,22 +125,72 @@
       transform: scale(0.95);
     }
 
-    .btn-plus {
-      flex: 1;
-      padding: 20px;
-      font-size: 1.5rem;
+    .btn-run {
+      padding: 18px 0;
+      font-size: 1.3rem;
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: #fff;
       box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
     }
 
-    .btn-plus:active {
+    .btn-run:active {
       box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5);
     }
 
+    .btn-four {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-four:active {
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.5);
+    }
+
+    .btn-six {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-six:active {
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+    }
+
     .btn-minus {
+      padding: 18px 0;
+      font-size: 1.3rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+    }
+
+    /* Wickets Section */
+    .wickets-display {
+      font-size: 4rem;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
+      padding: 8px 0 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-wicket {
+      flex: 1;
+      padding: 18px 0;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    .btn-wicket:active {
+      box-shadow: 0 2px 10px rgba(249, 115, 22, 0.5);
+    }
+
+    .btn-wicket-undo {
       width: 72px;
-      padding: 20px 0;
+      padding: 18px 0;
       font-size: 1.3rem;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -307,8 +358,20 @@
       <div class="card-label">Total Runs</div>
       <div class="score-display" id="score">0</div>
       <div class="score-buttons">
-        <button class="btn btn-plus" id="btnPlus">+1 Run</button>
+        <button class="btn btn-run" id="btnPlus">+1</button>
+        <button class="btn btn-run btn-four" id="btnFour">+4</button>
+        <button class="btn btn-run btn-six" id="btnSix">+6</button>
         <button class="btn btn-minus" id="btnMinus">&minus;1</button>
+      </div>
+    </div>
+
+    <!-- Wickets -->
+    <div class="card">
+      <div class="card-label">Wickets</div>
+      <div class="wickets-display" id="wickets">0</div>
+      <div class="ball-buttons">
+        <button class="btn btn-wicket btn-ball-main" id="btnWicket">+ Wicket</button>
+        <button class="btn btn-wicket-undo" id="btnWicketUndo">&minus;1</button>
       </div>
     </div>
 
@@ -348,10 +411,11 @@
     const elScore = document.getElementById('score');
     const elOvers = document.getElementById('overs');
     const elBallInfo = document.getElementById('ballInfo');
+    const elWickets = document.getElementById('wickets');
     const overlay = document.getElementById('overlay');
 
     function defaultState() {
-      return { runs: 0, totalBalls: 0 };
+      return { runs: 0, totalBalls: 0, wickets: 0 };
     }
 
     function loadState() {
@@ -360,6 +424,7 @@
         if (saved) {
           const parsed = JSON.parse(saved);
           if (typeof parsed.runs === 'number' && typeof parsed.totalBalls === 'number') {
+            if (typeof parsed.wickets !== 'number') parsed.wickets = 0;
             return parsed;
           }
         }
@@ -380,21 +445,40 @@
     function render() {
       elScore.textContent = state.runs;
       elOvers.textContent = formatOvers(state.totalBalls);
+      elWickets.textContent = state.wickets;
       const plural = state.totalBalls === 1 ? 'ball' : 'balls';
       elBallInfo.textContent = `${state.totalBalls} ${plural} bowled`;
     }
 
-    // +1 Run
-    document.getElementById('btnPlus').addEventListener('click', () => {
-      state.runs++;
+    function addRuns(n) {
+      state.runs += n;
       saveState();
       render();
-    });
+    }
 
-    // -1 Run
+    document.getElementById('btnPlus').addEventListener('click', () => addRuns(1));
+    document.getElementById('btnFour').addEventListener('click', () => addRuns(4));
+    document.getElementById('btnSix').addEventListener('click', () => addRuns(6));
+
     document.getElementById('btnMinus').addEventListener('click', () => {
       if (state.runs > 0) {
         state.runs--;
+        saveState();
+        render();
+      }
+    });
+
+    document.getElementById('btnWicket').addEventListener('click', () => {
+      if (state.wickets < 10) {
+        state.wickets++;
+        saveState();
+        render();
+      }
+    });
+
+    document.getElementById('btnWicketUndo').addEventListener('click', () => {
+      if (state.wickets > 0) {
+        state.wickets--;
         saveState();
         render();
       }
